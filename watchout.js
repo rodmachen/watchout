@@ -21,7 +21,6 @@ var gameBoard = d3.select('.container').append('svg:svg')
                 .classed({'gameboard': true});
 
 var updateScore = function() {
-  // d3.select('#current-score')
   d3.select('.current span')
     .text(gameStats.score.toString());
 };
@@ -41,7 +40,7 @@ var Player = function (gameOptions) {
   this.fill = '#ff6600';
   this.x = 0;
   this.y = 0;
-  this.angle = 0;
+  // this.angle = 0;
   this.r = 5;
   this.gameOptions = gameOptions;
 
@@ -81,12 +80,15 @@ Player.prototype.setY = function(y) {
 };
 
 Player.prototype.transform = function(options) {
-  this.angle = options.angle || this.angle;
+  // this.angle = options.angle || this.angle;
   this.setX = options.x || this.x;
   this.setY = options.y || this.y;
-  this.el.attr = 'transform',
-    "rotate(#{this.angle},#{this.getX()},#{this.getY()}) "+
-    "translate(#{this.getX()},#{this.getY()})";
+  // this.el.attr('transform',
+  //   "rotate(#{this.angle},#{this.getX()},#{this.getY()}) "+
+  //   "translate(#{this.getX()},#{this.getY()})");
+  // this.el.attr('transform', ('rotate(' + this.angle + ',' + (this.getX()) + ',' + (this.getY()) + ') ') + ('translate(' + (this.getX()) + ',' + (this.getY()) + ')'));
+  this.el.attr('transform', ('translate(' + (this.getX()) + ',' + (this.getY()) + ')'));
+
 };
 
 Player.prototype.moveAbsolute = function(x,y) {
@@ -96,18 +98,28 @@ Player.prototype.moveAbsolute = function(x,y) {
   });
 };
 
-Player.prototype.moveRelative = function(dx,dy) {
-  this.transform({
-    x: this.getX() + dx,
-    y: this.getY() + dy,
+Player.prototype.moveRelative = function(dx,dy) {  
+  // console.log(this.getX)
+  console.log(this)
+  var self = this;
+  var object = {
+    // x: this.x + dx,
+    // y: this.y + dy,
+    x: self.getX() + dx,
+    y: self.getY() + dy,
     angle: 360 * (Math.atan2(dy,dx) / (Math.PI * 2)),
-  });
+  };
+
+  this.transform(object);
 };
 
 Player.prototype.setUpDragging = function() {
-  var moveRelative = this.moveRelative
+  // var moveRelative = this.moveRelative
+  // console.log(this)
+  var self = this;
   var dragMove = function() {
-    moveRelative(d3.event.dx, d3.event.dy);
+  // console.log(this)
+    self.moveRelative(d3.event.dx, d3.event.dy);
   };
 
   var drag = d3.behavior.drag()
@@ -121,7 +133,7 @@ Player.prototype.setUpDragging = function() {
 
 var players = [];
 players.push(new Player(gameOptions).renderPlayer(gameBoard));
-players.push(new Player(gameOptions).renderPlayer(gameBoard));
+// players.push(new Player(gameOptions).renderPlayer(gameBoard));
 
 var createEnemies = function() {
   var enemies = [];
@@ -136,6 +148,8 @@ var createEnemies = function() {
 };
 
 var enemyData = createEnemies();
+
+
 
 var render = function(enemyData) {
 
@@ -171,6 +185,7 @@ var render = function(enemyData) {
     gameStats.score = 0;
     updateScore();
   };
+
 
   var tweenWithCollisionDetection = function(endData) {
 
@@ -223,8 +238,6 @@ var play = function() {
   gameTurn();
 
   setInterval(gameTurn, 2000);
-
-
   setInterval(increaseScore, 50);
 }
 
