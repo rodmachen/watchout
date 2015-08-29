@@ -3,22 +3,46 @@
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
 
+body {
+  position: relative;
+}
+div {
+}
 
 .container {
-  background-color: yellow;
+  background-color: gray;
+  margin: 20px;
 }
 .title {
   background-color: blue;
+  float: right;
 }
 .gameboard {
-  background-color: gray;
+  /*clear: both;*/
+  background-color: lightgray;
+  height: 640px;
+  width: 800px;
 }
 .scoreboard {
   background-color: lightgray;
+  float: right;
+  position: relative;
+
 }
 .player {
   
 }
 .enemy {
-  background-color: red;
+  background-color: darkred;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  border-radius: 10px;
+}
+.mouse {
+  background-color: blue;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  /*border-radius: 10px;*/
 }
