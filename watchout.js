@@ -30,22 +30,34 @@ var moveEnemies = function(element) {
 
 moveEnemies(enemies);
 
-// var board = d3.select('.gameboard');
-// board.on()
-
 var drag = d3.behavior.drag()
     .on("drag", dragmove);
 
-function dragmove(d) {
-  var x = d3.event.x;
-  var y = d3.event.y;
-  d3.select(this).attr("transform", "translate(" + x + "," + y + ")");
+function dragmove() {
+  var x = d3.event.x + 10;
+  console.log(x);
+  var y = d3.event.y - 10;
+  console.log(y);
+  console.log(this);
+  d3.select(this).style("transform", "translate(" + x + "px ," + y + "px )");
 }
 
 var mouse = d3.select('.gameboard')
                 .append('div')
                 .classed({'mouse': true})
-                .style({top: '300px', left: '300px'})
+                .style("transform", "translate(300px, 300px)")
                 .call(drag);
-                // .style({top: randomY, left: randomX});
+
+setInterval(function() {
+  settings.currentScore++;
+  d3.select(".current span").text(settings.currentScore);
+  d3.select(".high span").text(function() {
+    return Math.max(settings.currentScore, settings.bestScore)
+  });
+}, 100)
+
+
+
+
+
 

@@ -40,6 +40,8 @@ div {
   border-radius: 10px;
 }
 .mouse {
+  top: 0px;
+  left: 0px;
   background-color: blue;
   height: 20px;
   width: 20px;
