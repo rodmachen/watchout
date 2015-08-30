@@ -1,6 +1,4 @@
 var settings = {
-  // width: settings.radius * 2,
-  // height: settings.radius * 2,
   radius: 5,
   currentScore: 0,
   bestScore: 0,
@@ -35,10 +33,7 @@ var drag = d3.behavior.drag()
 
 function dragmove() {
   var x = d3.event.x + 10;
-  console.log(x);
   var y = d3.event.y - 10;
-  console.log(y);
-  console.log(this);
   d3.select(this).style("transform", "translate(" + x + "px ," + y + "px )");
 }
 
@@ -57,7 +52,15 @@ setInterval(function() {
 }, 100)
 
 
+var detectCollisions = function(){
+  enemies.each(function(){
 
+    // var x = 20px - ;
+    // var y = 20px - ;
+  })
+};
+
+detectCollisions();
 
 
 
